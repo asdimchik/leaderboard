@@ -1,0 +1,44 @@
+<head>
+    <title>Liderboard</title>
+</head>
+<body>
+    <div class="page-header"><h1>Liderboard</h1></div>
+    <div>{{> addPlayerForm}}</div>
+    <div>{{> leaderboard}}</div>
+</body>
+
+<template name="addPlayerForm">
+    <form>
+        <input type="text" name="playerName">
+        <input type="submit" value="Add Player">
+    </form>
+</template>
+
+<template name="leaderboard">
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group">
+                {{#each player}}
+                <li class="player {{selectedClass}} list-group-item">
+                    <span class="badge">{{score}}</span>
+                    {{name}}
+                </li>
+                {{/each}}
+                {{#if selectedPlayer}}
+                <li>Selected Player: {{selectedPlayer.name}}</li>
+                <li>
+                    <button class="increment">Give 5 Points</button>
+                </li>
+                <li>
+                    <p>
+                        <button class="decrement">Take 5 Poins</button>
+                    </p>
+                </li>
+                {{/if}}
+            </ul>
+            <span class="total label label-info">
+                Total: {{count}}
+            </span>
+        </div>
+    </div>
+</template>
