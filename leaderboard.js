@@ -31,12 +31,15 @@ if(Meteor.isClient){
             Session.set('selectedPlayer', playerId);
         },
         'click .increment': function(){
-            var selectedPlayer = Session.get('selectedPlayer'); //по нажатию кнопки вызывается сессия и передается в консоль значение ID
-            PlayersList.update({ _id: selectedPlayer}, {$inc: {score:5}}); //изменяем значени в БД, первый аргумент ищет по id кого хотим изменть, 2й документ какое поле на какое значение
+            var selectedPlayer = Session.get('selectedPlayer');
+            PlayersList.update({ _id: selectedPlayer}, {$inc: {score:5}});
         },
         'click .decrement': function(){
-            var selectedPlayer = Session.get('selectedPlayer'); //по нажатию кнопки вызывается сессия и передается в консоль значение ID
-            PlayersList.update({ _id: selectedPlayer}, {$inc: {score:-5}}); //изменяем значени в БД, первый аргумент ищет по id кого хотим изменть, 2й документ какое поле на какое значение
+            var selectedPlayer = Session.get('selectedPlayer');
+            PlayersList.update({ _id: selectedPlayer}, {$inc: {score:-5}});
+        },
+        'submit form': function(){
+            console.log("From submitted");
         }
     });
 }
