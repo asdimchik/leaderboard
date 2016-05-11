@@ -3,18 +3,27 @@
 </head>
 <body>
     <div class="page-header"><h1>Liderboard</h1></div>
+        <p>{{> loginButtons}}</p>
     <div>{{> addPlayerForm}}</div>
     <div>{{> leaderboard}}</div>
 </body>
 
 <template name="addPlayerForm">
-    <form>
-        <input type="text" name="playerName">
-        <input type="submit" value="Add Player">
-    </form>
+   {{#if currentUser}}
+        <div class="row">
+           <div class="col-md-4">
+                <form>
+                    <input type="text" name="playerName" class="input-sm" placeholder="Name" required>
+                    <input type="number" name="playerScore" class="input-sm" placeholder="Score" autocomplete="off">
+                    <input type="submit" value="Add Player" class="btn btn-default">
+                </form>
+           </div>
+       </div>
+    {{/if}}
 </template>
 
 <template name="leaderboard">
+    {{#if currentUser}}
     <div class="row">
         <div class="col-md-4">
             <ul class="list-group">
@@ -25,20 +34,31 @@
                 </li>
                 {{/each}}
                 {{#if selectedPlayer}}
-                <li>Selected Player: {{selectedPlayer.name}}</li>
-                <li>
-                    <button class="increment">Give 5 Points</button>
-                </li>
-                <li>
-                    <p>
-                        <button class="decrement">Take 5 Poins</button>
-                    </p>
-                </li>
+                <li><p>Selected Player: {{selectedPlayer.name}}</p></li>
+                <li><p><button class="increment btn btn-primary"> + Give 5 Points</button></p></li>
+                <li><p><button class="decrement btn btn-info"> - Take 5 Poins</button></p></li>
+                <li><p><button class="remove btn btn-danger">Remove Player</button></p></li>
                 {{/if}}
             </ul>
             <span class="total label label-info">
                 Total: {{count}}
             </span>
         </div>
+        <div class="modal fade" id="messageRem">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Do you want delete user: {{selectedPlayer.name}}</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="yes-delete btn btn-primary ">Yes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    {{else}}
+        <p>You must be logged-in to see this content.</p>
+    {{/if}}
 </template>
